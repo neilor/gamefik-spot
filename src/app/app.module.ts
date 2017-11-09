@@ -7,6 +7,7 @@ import { AppRoutes } from './app.routing';
 import { AppComponent } from './app.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { RaffleComponent } from './raffle/raffle.component';
+import { ScratchComponent } from './scratch/scratch.component';
 
 
 @NgModule({
@@ -14,6 +15,7 @@ import { RaffleComponent } from './raffle/raffle.component';
     AppComponent,
     WelcomeComponent,
     RaffleComponent,
+    ScratchComponent,
   ],
   imports: [
     BrowserModule,

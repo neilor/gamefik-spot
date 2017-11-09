@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
+const CARDS_LIST = [1, 2, 3, 4, 5, 6];
 
 @Component({
   selector: 'app-raffle',
@@ -7,9 +10,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RaffleComponent implements OnInit {
 
-  constructor() { }
+  public cardList = CARDS_LIST;
+
+  constructor(
+    private _router: Router,
+  ) { }
 
   ngOnInit() {
+  }
+
+  startScratch() {
+    this._router.navigate(['/scratch']);
   }
 
 }

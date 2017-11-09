@@ -1,3 +1,5 @@
-<p>
-  raffle works!
-</p>
+<h1 class="display-1">
+  Escolha uma raspadinha
+</h1>
+
+<button type="button" class="btn btn-dark mt-2" (click)="startScratch()" *ngFor="let card of cardList">Card {{card}}</button>
