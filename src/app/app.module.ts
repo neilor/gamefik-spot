@@ -8,6 +8,8 @@ import { AppComponent } from './app.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { RaffleComponent } from './raffle/raffle.component';
 
+import { RaffleSessionService } from './raffle-session.service';
+
 
 @NgModule({
   declarations: [
@@ -19,7 +21,9 @@ import { RaffleComponent } from './raffle/raffle.component';
     BrowserModule,
     RouterModule.forRoot(AppRoutes),
   ],
-  providers: [],
+  providers: [
+    RaffleSessionService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

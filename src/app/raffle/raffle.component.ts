@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
-const CARDS_LIST = [1, 2, 3, 4, 5, 6];
+import { RaffleSessionService, RaffleSessionStates } from './../raffle-session.service';
 
 @Component({
   selector: 'app-raffle',
@@ -10,24 +9,26 @@ const CARDS_LIST = [1, 2, 3, 4, 5, 6];
 })
 export class RaffleComponent implements OnInit {
 
-  // temporary states that will migrated to service
-  public cardList = CARDS_LIST;
-  public cardSelected = false;
-  public scratched = false;
+  public sessionStates = RaffleSessionStates;
 
   constructor(
     private _router: Router,
+    public sessionSvc: RaffleSessionService,
   ) { }
 
   ngOnInit() {
   }
 
   startScratch() {
-    this.cardSelected = true;
+    this.sessionSvc.selectCard();
   }
 
   finishScratch() {
-    this.scratched = true;
+    this.sessionSvc.finishScratch();
+  }
+
+  finishRaffle() {
+    this.sessionSvc.finishSession();
   }
 
 }

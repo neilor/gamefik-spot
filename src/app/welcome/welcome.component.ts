@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { RaffleSessionService } from '../raffle-session.service';
 
 @Component({
   selector: 'app-welcome',
@@ -9,14 +9,14 @@ import { Router } from '@angular/router';
 export class WelcomeComponent implements OnInit {
 
   constructor(
-    private _router: Router,
+    private _raffleSessionSvc: RaffleSessionService,
   ) { }
 
   ngOnInit() {
   }
 
   goToRaffle() {
-    this._router.navigate(['/raffle']);
+    this._raffleSessionSvc.startSession();
   }
 
 }
