@@ -19,7 +19,7 @@ export class ParticlesAnimation {
     readonly options: ParticlesAnimationOptions,
   ) {
     // declare rendering context
-    const canvasEl: HTMLCanvasElement = document.querySelector(canvasSelector);
+    const canvasEl: any = document.querySelector(canvasSelector);
     canvasEl.width = this.options.windowSize.width * 2;
     canvasEl.height = this.options.windowSize.height * 2;
     this._context2D = canvasEl.getContext('2d');
