@@ -1,3 +1,6 @@
-<p>
-  scratch works!
-</p>
+<h1 class="display-1">
+  <ng-container *ngIf="!scratched">Escolha uma raspadinha</ng-container>
+  <ng-container *ngIf="scratched">Parabéns</ng-container>
+</h1>
+
+<button type="button" class="btn btn-dark mt-2" (click)="finishScratch()" *ngIf="!scratched">Raspar</button>

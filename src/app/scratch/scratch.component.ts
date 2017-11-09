@@ -7,9 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ScratchComponent implements OnInit {
 
+  public scratched = false;
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  finishScratch() {
+    this.scratched = true;
   }
 
 }
