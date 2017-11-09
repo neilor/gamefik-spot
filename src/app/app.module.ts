@@ -10,6 +10,7 @@ import { WelcomeComponent } from './welcome/welcome.component';
 import { RaffleComponent } from './raffle/raffle.component';
 
 import { RaffleSessionService } from './raffle-session.service';
+import { RaffleSessionGuard } from './raffle-session.guard';
 import { StoreService } from './store.service';
 
 
@@ -29,6 +30,7 @@ import { StoreService } from './store.service';
   ],
   providers: [
     RaffleSessionService,
+    RaffleSessionGuard,
     StoreService,
   ],
   bootstrap: [AppComponent]
