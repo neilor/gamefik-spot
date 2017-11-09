@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { StoreService } from './store.service';
+import { Reward } from './reward';
+
 export enum RaffleSessionStates {
   NOT_STARTED       = 'not_started',
   WAITING_SELECTION = 'waiting_selection',
@@ -20,6 +23,8 @@ export class RaffleSessionService {
 
   private _state = RaffleSessionStates.NOT_STARTED;
 
+  private _reward: Reward;
+
   get cardList(): number[] {
     return this._cardList;
   }
@@ -36,13 +41,19 @@ export class RaffleSessionService {
     return this._state;
   }
 
+  get reward(): Reward {
+    return this._reward;
+  }
+
   constructor(
     private _router: Router,
+    private _store: StoreService,
   ) { }
 
   startSession() {
     this._resetSessionData();
     this._state = RaffleSessionStates.WAITING_SELECTION;
+    this._reward = this._store.getNewReward();
     this._router.navigate(['/raffle']);
   }
 
@@ -63,6 +74,7 @@ export class RaffleSessionService {
 
   private _resetSessionData() {
     this._cardSelected = this._scratched = false;
+    this._reward = null;
   }
 
 }
