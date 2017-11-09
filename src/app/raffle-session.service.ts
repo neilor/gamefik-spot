@@ -54,6 +54,7 @@ export class RaffleSessionService {
     this._resetSessionData();
     this._state = RaffleSessionStates.WAITING_SELECTION;
     this._reward = this._store.getNewReward();
+    console.log(this._reward);
     this._router.navigate(['/raffle']);
   }
 
