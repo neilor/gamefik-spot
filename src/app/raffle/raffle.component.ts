@@ -10,7 +10,10 @@ const CARDS_LIST = [1, 2, 3, 4, 5, 6];
 })
 export class RaffleComponent implements OnInit {
 
+  // temporary states that will migrated to service
   public cardList = CARDS_LIST;
+  public cardSelected = false;
+  public scratched = false;
 
   constructor(
     private _router: Router,
@@ -20,7 +23,11 @@ export class RaffleComponent implements OnInit {
   }
 
   startScratch() {
-    this._router.navigate(['/scratch']);
+    this.cardSelected = true;
+  }
+
+  finishScratch() {
+    this.scratched = true;
   }
 
 }

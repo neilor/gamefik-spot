@@ -1,5 +1,13 @@
 <h1 class="display-1">
-  Escolha uma raspadinha
+  <ng-container *ngIf="!cardSelected">Escolha uma raspadinha</ng-container>
+  <ng-container *ngIf="cardSelected && !scratched">Vamos lá, raspe agora e descubra seu prêmio</ng-container>
+  <ng-container *ngIf="scratched">Parabéns</ng-container>
 </h1>
 
-<button type="button" class="btn btn-dark mt-2" (click)="startScratch()" *ngFor="let card of cardList">Card {{card}}</button>
+<ul *ngIf="!cardSelected">
+  <li *ngFor="let card of cardList">
+    <button type="button" class="btn btn-dark mt-2" (click)="startScratch()">Card {{card}}</button>
+  </li>
+</ul>
+
+<button type="button" class="btn btn-dark mt-2" (click)="finishScratch()" *ngIf="cardSelected && !scratched">Raspar</button>
