@@ -219,14 +219,16 @@ export class RaffleComponent implements OnInit {
 
     this.CardSelection = anime({
       targets: cardClass,
-      rotateY: '150deg',
-      scale: 3,
+      rotateY: '180deg',
+      easing: 'easeOutQuad',
+      width: 360,
+      height: 600,
       duration: 3000,
       zIndex: {
         value: 5,
         round: true
       },
-      complete: () => {
+      begin: () => {
         if(cardClass=='.card1'){
           this.CardAnimationFloating1.pause();
         }
