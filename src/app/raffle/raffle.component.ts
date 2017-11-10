@@ -13,6 +13,8 @@ export class RaffleComponent implements OnInit {
   CardWidth = '120px';
   CardHeight = '200px';
 
+  canClickOnCard: number[] = [];
+
   // Animations
   InstructionAnimation;
   CardAnimationIntro1;
@@ -35,28 +37,37 @@ export class RaffleComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
     this._animateInstructionMsg();
     this._initCardsAnimation();
-
     setTimeout(() => this._animateCards(), 500);
   }
 
   selectCard(cardNumber: number) {
-    this._animateCardSelection(cardNumber);
-    this._showOverlay();
+    if (this.canClickOnCard.indexOf(cardNumber) === -1) { return; }
+
+    if (!this.sessionSvc.cardSelected) {
+      this._animateCardSelection(cardNumber);
+      this._startScratch();
+    } else {
+      this._scratchCard(cardNumber);
+    }
+    // this._showOverlay();
   }
 
-  startScratch() {
+  private _scratchCard(cardNumber: number) {
+    this._animateCardScratching(cardNumber);
+  }
+
+  private _finishRaffle() {
+    this.sessionSvc.finishSession();
+  }
+
+  private _startScratch() {
     this.sessionSvc.selectCard();
   }
 
-  finishScratch() {
+  private _finishScratch() {
     this.sessionSvc.finishScratch();
-  }
-
-  finishRaffle() {
-    this.sessionSvc.finishSession();
   }
 
   private _initCardsAnimation() {
@@ -69,6 +80,7 @@ export class RaffleComponent implements OnInit {
       duration: 1800,
       direction: 'alternate',
       autoplay: false,
+      begin: () => this.canClickOnCard.push(1),
 
     });
 
@@ -81,6 +93,7 @@ export class RaffleComponent implements OnInit {
       duration: 1800,
       direction: 'alternate',
       autoplay: false,
+      begin: () => this.canClickOnCard.push(2),
 
     });
 
@@ -93,6 +106,7 @@ export class RaffleComponent implements OnInit {
       duration: 1800,
       direction: 'alternate',
       autoplay: false,
+      begin: () => this.canClickOnCard.push(3),
 
     });
 
@@ -105,6 +119,7 @@ export class RaffleComponent implements OnInit {
       duration: 1800,
       direction: 'alternate',
       autoplay: false,
+      begin: () => this.canClickOnCard.push(4),
     });
 
     this.CardAnimationFloating5 = anime({
@@ -116,6 +131,7 @@ export class RaffleComponent implements OnInit {
       duration: 1800,
       direction: 'alternate',
       autoplay: false,
+      begin: () => this.canClickOnCard.push(5),
     });
 
     this.CardAnimationIntro1 = anime({
@@ -229,6 +245,17 @@ export class RaffleComponent implements OnInit {
         round: true
       },
       begin: () => this[`CardAnimationFloating${cardNumber}`].pause(),
+    });
+  }
+
+  private _animateCardScratching(cardNumber) {
+    const contentClass = `.card${cardNumber} .back .content`;
+
+    anime({
+      targets: contentClass,
+      backgroundColor: `rgb(0,0,0,0)`,
+      duration: 2000,
+      complete: () => alert('finished raffle'), // this.finishRaffle(),
     });
   }
 

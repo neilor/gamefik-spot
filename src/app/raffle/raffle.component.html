@@ -1,7 +1,7 @@
-<h1 class="display-1 instructionMsg" style="position:relative; bottom:300px" [ngSwitch]="sessionSvc.state">
+<h1 class="display-2 instructionMsg" style="position:relative; bottom:300px" [ngSwitch]="sessionSvc.state">
   <ng-container *ngSwitchCase="sessionStates.WAITING_SELECTION">Escolha uma raspadinha</ng-container>
-  <ng-container *ngSwitchCase="sessionStates.WAITING_SCRATCH">Vamos lá, raspe agora e descubra seu prêmio</ng-container>
-  <ng-container *ngSwitchCase="sessionStates.FINISHED">Parabéns</ng-container>
+  <ng-container *ngSwitchCase="sessionStates.WAITING_SCRATCH">Vamos lá, clique para raspar!</ng-container>
+  <ng-container *ngSwitchCase="sessionStates.FINISHED">Parabéns!</ng-container>
 </h1>
 
 <!--<ul *ngIf="sessionSvc.state === sessionStates.WAITING_SELECTION">-->
@@ -53,5 +53,5 @@
 </div>
 
 
-<button type="button" class="btn btn-dark mt-2" (click)="finishScratch()" *ngIf="sessionSvc.state === sessionStates.WAITING_SCRATCH">Raspar</button>
-<button type="button" class="btn btn-dark mt-2" (click)="finishRaffle()" *ngIf="sessionSvc.state === sessionStates.FINISHED">Bye Bye!</button>
+<!-- <button type="button" class="btn btn-dark mt-2" (click)="finishScratch()" *ngIf="sessionSvc.state === sessionStates.WAITING_SCRATCH">Raspar</button> -->
+<!-- <button type="button" class="btn btn-dark mt-2" (click)="finishRaffle()" *ngIf="sessionSvc.state === sessionStates.FINISHED">Bye Bye!</button> -->
