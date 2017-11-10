@@ -12,11 +12,8 @@ export class RaffleComponent implements OnInit {
 
   CardWidth = '120px';
   CardHeight = '200px';
-  ContainClass;
-
 
   // Animations
-  ContainAnimation;
   InstructionAnimation;
   CardAnimationIntro1;
   CardAnimationIntro2;
@@ -28,7 +25,6 @@ export class RaffleComponent implements OnInit {
   CardAnimationFloating3;
   CardAnimationFloating4;
   CardAnimationFloating5;
-  CardSelection;
   OverlayAnimation;
 
   public sessionStates = RaffleSessionStates;
@@ -40,14 +36,30 @@ export class RaffleComponent implements OnInit {
 
   ngOnInit() {
 
-    this.InstructionAnimation = anime({
+    this._animateInstructionMsg();
+    this._initCardsAnimation();
 
-      targets: '.instructionMsg',
-      opacity: 1,
-      duration: 1000,
+    setTimeout(() => this._animateCards(), 500);
+  }
 
-    });
+  selectCard(cardNumber: number) {
+    this._animateCardSelection(cardNumber);
+    this._showOverlay();
+  }
 
+  startScratch() {
+    this.sessionSvc.selectCard();
+  }
+
+  finishScratch() {
+    this.sessionSvc.finishScratch();
+  }
+
+  finishRaffle() {
+    this.sessionSvc.finishSession();
+  }
+
+  private _initCardsAnimation() {
     this.CardAnimationFloating1 = anime({
       loop: true,
       easing: 'easeInOutQuad',
@@ -61,7 +73,7 @@ export class RaffleComponent implements OnInit {
     });
 
     this.CardAnimationFloating2 = anime({
-      loop:true,
+      loop: true,
       easing: 'easeInOutQuad',
       targets: '.card2',
       translateY: -10,
@@ -73,7 +85,7 @@ export class RaffleComponent implements OnInit {
     });
 
     this.CardAnimationFloating3 = anime({
-      loop:true,
+      loop: true,
       easing: 'easeInOutQuad',
       targets: '.card3',
       translateY: -10,
@@ -85,7 +97,7 @@ export class RaffleComponent implements OnInit {
     });
 
     this.CardAnimationFloating4 = anime({
-      loop:true,
+      loop: true,
       easing: 'easeInOutQuad',
       targets: '.card4',
       translateY: -10,
@@ -96,7 +108,7 @@ export class RaffleComponent implements OnInit {
     });
 
     this.CardAnimationFloating5 = anime({
-      loop:true,
+      loop: true,
       easing: 'easeInOutQuad',
       targets: '.card5',
       translateY: -10,
@@ -104,10 +116,7 @@ export class RaffleComponent implements OnInit {
       duration: 1800,
       direction: 'alternate',
       autoplay: false,
-
     });
-
-
 
     this.CardAnimationIntro1 = anime({
       autoplay: false,
@@ -117,9 +126,8 @@ export class RaffleComponent implements OnInit {
       rotate: '1turn',
       elasticity: 0,
       offset: 0,
-      complete: () => {
-        setTimeout(()=>{this.CardAnimationFloating1.play()},Math.random() * 1800);
-      }
+      complete: () =>
+        setTimeout(() => this.CardAnimationFloating1.play(), Math.random() * 1800),
     });
 
     this.CardAnimationIntro2 = anime({
@@ -131,9 +139,8 @@ export class RaffleComponent implements OnInit {
       delay: 200,
       elasticity: 0,
       offset: 0,
-      complete: () => {
-        setTimeout(()=>{this.CardAnimationFloating3.play()},Math.random() * 1800);
-      }
+      complete: () =>
+        setTimeout(() => this.CardAnimationFloating3.play(), Math.random() * 1800)
     });
 
     this.CardAnimationIntro3 = anime({
@@ -145,9 +152,9 @@ export class RaffleComponent implements OnInit {
       offset: 0,
       elasticity: 0,
       delay: 400,
-      complete: () => {
-        setTimeout(()=>{this.CardAnimationFloating5.play()},Math.random() * 1800);
-      }});
+      complete: () =>
+        setTimeout(() => this.CardAnimationFloating5.play(), Math.random() * 1800)
+    });
 
     this.CardAnimationIntro4 = anime({
       autoplay: false,
@@ -158,9 +165,9 @@ export class RaffleComponent implements OnInit {
       offset: 0,
       elasticity: 0,
       delay: 600,
-      complete: () => {
-        setTimeout(()=>{this.CardAnimationFloating4.play()},Math.random() * 1800);
-      }});
+      complete: () =>
+        setTimeout(() => this.CardAnimationFloating4.play(), Math.random() * 1800),
+      });
 
     this.CardAnimationIntro5 = anime({
       autoplay: false,
@@ -171,107 +178,80 @@ export class RaffleComponent implements OnInit {
       offset: 0,
       delay: 800,
       elasticity: 0,
-      complete: () => {
-        setTimeout(()=>{this.CardAnimationFloating2.play()},Math.random() * 1800);
-      }
+      complete: () =>
+        setTimeout(() => this.CardAnimationFloating2.play(), Math.random() * 1800)
     });
-
-    setTimeout(()=>this.introCarta(),500);
-
   }
 
-  introCarta(){
-
+  private _animateCards() {
     this.CardAnimationIntro1.play();
     this.CardAnimationIntro2.play();
     this.CardAnimationIntro3.play();
     this.CardAnimationIntro4.play();
     this.CardAnimationIntro5.play();
-
   }
 
+  private _animateInstructionMsg() {
+    this.InstructionAnimation = anime({
+      targets: '.instructionMsg',
+      opacity: 1,
+      duration: 1000,
+    });
+  }
 
-  selectCard(cardClass:string){
+  private _animateCardSelection(cardNumber: number) {
+    const cardClass = `.card${cardNumber}`;
+    const containClass = `.contain${cardNumber}`;
 
-    if(cardClass=='.card1'){
-      this.ContainClass = '.contain1';
-    }
-    else if(cardClass=='.card2'){
-      this.ContainClass = '.contain2';
-    }
-    else if(cardClass=='.card3'){
-      this.ContainClass = '.contain3';
-    }
-    else if(cardClass=='.card4'){
-      this.ContainClass = '.contain4';
-    }
-    else if(cardClass=='.card5'){
-      this.ContainClass = '.contain5';
-    }
-
-    this.ContainAnimation = anime({
-      targets: this.ContainClass,
+    anime({
+      targets: containClass,
       zIndex: {
         value: 5,
         round: true
       },
-    })
+    });
 
-    this.CardSelection = anime({
-      targets: cardClass,
+    anime({
+      targets: containClass,
+      top: '730px',
+      right: '400px',
+      duration: 3000,
+    });
+
+    anime({
+      targets: [cardClass],
       rotateY: '180deg',
       easing: 'easeOutQuad',
-      width: 360,
-      height: 600,
+      scale: 2.3,
       duration: 3000,
       zIndex: {
         value: 5,
         round: true
       },
-      begin: () => {
-        if(cardClass=='.card1'){
-          this.CardAnimationFloating1.pause();
-        }
-        else if(cardClass=='.card2'){
-          this.CardAnimationFloating2.pause();
-        }
-        else if(cardClass=='.card3'){
-          this.CardAnimationFloating3.pause();
-        }
-        else if(cardClass=='.card4'){
-          this.CardAnimationFloating4.pause();
-        }
-        else if(cardClass=='.card5'){
-          this.CardAnimationFloating5.pause();
-        }
-      }
+      begin: () => this[`CardAnimationFloating${cardNumber}`].pause(),
     });
+  }
 
+  private _showOverlay() {
     this.OverlayAnimation = anime({
-      targets: '.overlay',
-      backgroundColor: '#1b1429',
-      opacity: 0.5,
+      targets: '.card-overlay',
       zIndex: {
         value: 3,
         round: true
       },
       duration: 1500,
     });
-
-
-
   }
 
-  startScratch() {
-    this.sessionSvc.selectCard();
-  }
-
-  finishScratch() {
-    this.sessionSvc.finishScratch();
-  }
-
-  finishRaffle() {
-    this.sessionSvc.finishSession();
+  private _hideOverlay() {
+    this.OverlayAnimation = anime({
+      targets: '.card-overlay',
+      zIndex: {
+        value: -2,
+        round: true
+      },
+      duration: 1500,
+    });
   }
 
 }

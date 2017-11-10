@@ -8,7 +8,7 @@
       <header class="masthead clearfix">
         <div class="inner">
           <h1 class="masthead-brand">GAMEFIK</h1>
-          <nav class="nav nav-masthead">
+          <nav class="nav nav-masthead" style="position: absolute; right: 50px; top: 50px;">
             <a class="nav-link" (click)="lockRaffle()" *ngIf="!this.raffleSessionSvc.locked">LOCK</a>
             <a class="nav-link" (click)="unlockRaffle()" *ngIf="this.raffleSessionSvc.locked">UNLOCK</a>
           </nav>

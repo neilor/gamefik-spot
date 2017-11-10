@@ -9,7 +9,7 @@ import * as anime from 'animejs';
 })
 export class WelcomeComponent implements OnInit {
 
-  //Animations
+  // Animations
   buttonAwayAnimation;
   msgAnimationUp;
   msgAnimationAway;
@@ -40,7 +40,7 @@ export class WelcomeComponent implements OnInit {
     this.msgAnimationUp = anime({
       autoplay: false,
       targets: '.welcomeMsg',
-      translateY: -500,
+      translateY: -300,
       duration: 1200,
       easing: 'linear',
       complete: () => {
