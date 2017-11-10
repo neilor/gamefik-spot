@@ -1,7 +1,10 @@
 import { Component, AfterViewInit } from '@angular/core';
 import { ParticlesAnimation } from './particles-animation';
+import { RaffleSessionService } from './raffle-session.service';
 
 import * as anime from 'animejs';
+
+const LOCK_PASSWORD = '31991';
 
 @Component({
   selector: 'app-root',
@@ -13,6 +16,10 @@ export class AppComponent implements AfterViewInit {
   // fireworks animation on background
   private _particlesAnimation: ParticlesAnimation;
   private _touchPointer: { x: number, y: number };
+
+  constructor(
+    public raffleSessionSvc: RaffleSessionService,
+  ) { }
 
   ngAfterViewInit() {
     this._particlesAnimation = new ParticlesAnimation('.fireworks', {
@@ -36,6 +43,33 @@ export class AppComponent implements AfterViewInit {
 
     // animate particules
     this._particlesAnimation.animate(coordX, coordY);
+  }
+
+  lockRaffle(): void {
+    this._toggleRaffleLocking();
+  }
+
+  unlockRaffle(): void {
+    this._toggleRaffleLocking();
+  }
+
+  private _toggleRaffleLocking(): void {
+    if (!this._isPasswordCorrect()) { return; }
+
+    // set locked state
+    this.raffleSessionSvc.toggleLockState();
+  }
+
+  private _isPasswordCorrect(): boolean {
+    const promptPassword = prompt('Digite a senha de Bloqueio:', '');
+
+    // alert wrong password
+    if (promptPassword !== LOCK_PASSWORD) {
+      alert('Senha incorreta!');
+      return false;
+    }
+
+    return true;
   }
 
 }

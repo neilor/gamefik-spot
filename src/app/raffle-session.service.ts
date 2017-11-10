@@ -25,6 +25,8 @@ export class RaffleSessionService {
 
   private _reward: Reward;
 
+  private _locked = false;
+
   get cardList(): number[] {
     return this._cardList;
   }
@@ -43,6 +45,10 @@ export class RaffleSessionService {
 
   get reward(): Reward {
     return this._reward;
+  }
+
+  get locked(): boolean {
+    return this._locked;
   }
 
   constructor(
@@ -71,6 +77,10 @@ export class RaffleSessionService {
   finishSession() {
     this._router.navigate(['/']);
     this._state = RaffleSessionStates.NOT_STARTED;
+  }
+
+  toggleLockState() {
+    this._locked = !this._locked;
   }
 
   private _resetSessionData() {
