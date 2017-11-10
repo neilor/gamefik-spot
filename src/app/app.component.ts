@@ -26,8 +26,8 @@ export class AppComponent implements AfterViewInit {
       colors: ['#FF1461', '#18FF92', '#5A87FF', '#FBF38C'],
       particlesNumber: 30,
       windowSize: {
-        width: 1080,
-        height: 1920,
+        width: 720,
+        height: 1280,
       }
     });
   }
