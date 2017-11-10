@@ -1,14 +1,52 @@
-<h1 class="display-1" [ngSwitch]="sessionSvc.state">
+<h1 class="display-1 instructionMsg" style="position:relative; bottom:500px" [ngSwitch]="sessionSvc.state">
   <ng-container *ngSwitchCase="sessionStates.WAITING_SELECTION">Escolha uma raspadinha</ng-container>
   <ng-container *ngSwitchCase="sessionStates.WAITING_SCRATCH">Vamos lá, raspe agora e descubra seu prêmio</ng-container>
   <ng-container *ngSwitchCase="sessionStates.FINISHED">Parabéns</ng-container>
 </h1>
 
-<ul *ngIf="sessionSvc.state === sessionStates.WAITING_SELECTION">
-  <li *ngFor="let card of sessionSvc.cardList">
-    <button type="button" class="btn btn-dark mt-2" (click)="startScratch()">Card {{card}}</button>
-  </li>
-</ul>
+<!--<ul *ngIf="sessionSvc.state === sessionStates.WAITING_SELECTION">-->
+  <!--<li *ngFor="let card of sessionSvc.cardList">-->
+    <!--<button type="button" class="btn btn-dark mt-2" (click)="startScratch()">Card {{card}}</button>-->
+  <!--</li>-->
+<!--</ul>-->
+
+<div class="overlay" style="position: absolute; left:0; top:0; width:1080px; height:1920px; z-index:-2"></div>
+<div class="contain1" (click)="selectCard('.card1')" style="z-index: 2 !important; border-radius: 0px;">
+  <div class="card1 card">
+    <div class="front face"></div>
+    <div class="back face"></div>
+  </div>
+</div>
+<div class="contain2" (click)="selectCard('.card2')" style="z-index: 2 !important; border-radius: 0px;">
+  <div class="card2 card">
+    <div class="front face"></div>
+    <div class="back face"></div>
+  </div>
+</div>
+<div class="contain3" (click)="selectCard('.card3')" style="z-index: 2 !important; border-radius: 0px;">
+  <div class="card3 card">
+    <div class="front face"></div>
+    <div class="back face"></div>
+  </div>
+</div>
+<div class="contain4" (click)="selectCard('.card4')" style="z-index: 2 !important; border-radius: 0px;">
+  <div class="card4 card">
+    <div class="front face"></div>
+    <div class="back face"></div>
+  </div>
+</div>
+<div class="contain5" (click)="selectCard('.card5')" style="z-index: 2 !important; border-radius: 0px;">
+  <div class="card5 card">
+    <div class="front face"></div>
+    <div class="back face"></div>
+  </div>
+</div>
+<!--<div class="card2 card" (click)="selectCard('.card2')" style="z-index: 2 !important; background-color: #ff7c72; border-radius: 0px;"></div>-->
+<!--<div class="card3 card" (click)="selectCard('.card3')" style="z-index: 2 !important; background-color: #ff7c72; border-radius: 0px;"></div>-->
+<!--<div class="card4 card" (click)="selectCard('.card4')" style="z-index: 2 !important; background-color: #ff7c72; border-radius: 0px;"></div>-->
+<!--<div class="card5 card" (click)="selectCard('.card5')" style="z-index: 2 !important; background-color: #ff7c72; border-radius: 0px;"></div>-->
+
+
 
 <button type="button" class="btn btn-dark mt-2" (click)="finishScratch()" *ngIf="sessionSvc.state === sessionStates.WAITING_SCRATCH">Raspar</button>
 <button type="button" class="btn btn-dark mt-2" (click)="finishRaffle()" *ngIf="sessionSvc.state === sessionStates.FINISHED">Bye Bye!</button>
