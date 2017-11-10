@@ -12,6 +12,7 @@ import { RaffleComponent } from './raffle/raffle.component';
 import { RaffleSessionService } from './raffle-session.service';
 import { RaffleSessionGuard } from './raffle-session.guard';
 import { StoreService } from './store.service';
+import { ScratchCardComponent } from './scratch-card/scratch-card.component';
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import { StoreService } from './store.service';
     AppComponent,
     WelcomeComponent,
     RaffleComponent,
+    ScratchCardComponent,
   ],
   imports: [
     BrowserModule,
