@@ -30,6 +30,8 @@ export class RaffleComponent implements OnInit {
   CardAnimationFloating5;
   OverlayAnimation;
 
+  contentClasses = {};
+
   public sessionStates = RaffleSessionStates;
 
   constructor(
@@ -255,11 +257,26 @@ export class RaffleComponent implements OnInit {
   private _animateCardScratching(cardNumber) {
     const contentClass = `.card${cardNumber} .back .content`;
 
+    this.sessionSvc.toggleLockState();
+
+    const showRewardImageAnimation = anime({
+      targets: contentClass,
+      opacity: 1,
+      duration: 2000,
+      complete: () => {
+        this.waitingFinish = true;
+      },
+      autoplay: false,
+    });
+
     anime({
       targets: contentClass,
-      backgroundColor: `rgb(0,0,0,0)`,
+      opacity: 0,
       duration: 2000,
-      complete: () => alert('finished raffle'), // this.finishRaffle(),
+      complete: () => {
+        this.contentClasses[this.sessionSvc.reward.cssClass] = true;
+        showRewardImageAnimation.play();
+      },
     });
   }
 

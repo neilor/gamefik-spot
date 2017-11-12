@@ -2,6 +2,7 @@ export interface Reward {
   name: string;
   isTop: boolean;
   imageURI: string;
+  cssClass: string;
 }
 
 export interface TopReward extends Reward {
@@ -19,34 +20,39 @@ export interface TopReward extends Reward {
   */
 
 export const DEFAULT_REWARD: Reward = {
-  name: 'Copão 1000 grau Programadores do Futuro',
+  name: 'Copão Programadores do Futuro',
   isTop: false,
-  imageURI: 'http://place-hold.it/500',
+  imageURI: '/assets/img/coponudo.jpg',
+  cssClass: 'reward-cup',
 };
 
 export const TOP_REWARDS: TopReward[] = [
   {
     name: 'Headset Gamer',
     isTop: true,
-    imageURI: 'http://place-hold.it/500',
+    imageURI: '/assets/img/headset.png',
     selectedSessions: [2, 10],
+    cssClass: 'reward-headset',
   },
   {
     name: 'Mouse Gamer',
     isTop: true,
-    imageURI: 'http://place-hold.it/500',
+    imageURI: '/assets/img/mouse.jpg',
     selectedSessions: [4, 12, 16],
+    cssClass: 'reward-mouse',
   },
   {
     name: 'Óculos Realidade Virtual',
     isTop: true,
-    imageURI: 'http://place-hold.it/500',
+    imageURI: '/assets/img/vr.jpg',
     selectedSessions: [6],
+    cssClass: 'reward-vr',
   },
   {
     name: 'Teclado Gamer',
     isTop: true,
-    imageURI: 'http://place-hold.it/500',
+    imageURI: '/assets/img/teclado.png',
     selectedSessions: [8, 14, 18, 20],
+    cssClass: 'reward-keyboard',
   },
 ];
