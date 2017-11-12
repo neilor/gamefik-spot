@@ -14,6 +14,7 @@ export class RaffleComponent implements OnInit {
   CardHeight = '200px';
 
   canClickOnCard: number[] = [];
+  waitingFinish = false;
 
   // Animations
   InstructionAnimation;
@@ -43,13 +44,16 @@ export class RaffleComponent implements OnInit {
   }
 
   selectCard(cardNumber: number) {
-    if (this.canClickOnCard.indexOf(cardNumber) === -1) { return; }
+    if (this.canClickOnCard.indexOf(cardNumber) === -1 || this.sessionSvc.locked) { return; }
 
     if (!this.sessionSvc.cardSelected) {
       this._animateCardSelection(cardNumber);
       this._startScratch();
-    } else {
+    } else if (!this.waitingFinish) {
       this._scratchCard(cardNumber);
+    } else {
+      this.waitingFinish = false;
+      this._finishRaffle();
     }
     // this._showOverlay();
   }
