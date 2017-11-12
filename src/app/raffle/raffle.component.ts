@@ -15,6 +15,7 @@ export class RaffleComponent implements OnInit {
 
   canClickOnCard: number[] = [];
   waitingFinish = false;
+  rewarding = false;
 
   // Animations
   InstructionAnimation;
@@ -255,9 +256,13 @@ export class RaffleComponent implements OnInit {
   }
 
   private _animateCardScratching(cardNumber) {
+    if (this.rewarding) { return; }
+
     const contentClass = `.card${cardNumber} .back .content`;
 
-    this.sessionSvc.toggleLockState();
+    this.rewarding = true;
+
+    if (this.sessionSvc.reward.isTop) { this.sessionSvc.toggleLockState(); }
 
     const showRewardImageAnimation = anime({
       targets: contentClass,
@@ -275,6 +280,7 @@ export class RaffleComponent implements OnInit {
       duration: 2000,
       complete: () => {
         this.contentClasses[this.sessionSvc.reward.cssClass] = true;
+        this.contentClasses['content-hidden'] = true;
         showRewardImageAnimation.play();
       },
     });

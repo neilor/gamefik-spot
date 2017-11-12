@@ -87,6 +87,10 @@
   background-repeat: no-repeat;
 }
 
+.face.back .content.content-hidden {
+  opacity: 0;
+}
+
 .face.back .content.reward-headset {
   background-color: #FFF;
   background-image: url(/assets/img/headset.png);
